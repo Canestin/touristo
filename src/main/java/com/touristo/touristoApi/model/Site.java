@@ -20,25 +20,10 @@ public class Site {
     private String codePostal;
     private String city;
     private String country;
-    private String latitude;
-    private String longitude;
+    private Double latitude;
+    private Double longitude;
     private String historicalContext;
     private Double importance;
     private String type;
 
-    // public Site(String department, String name, String streetName, String
-    // codePostal, String country,
-    // String latitude, String longitude, String historicalContext, String
-    // importance, String type) {
-    // this.department = department;
-    // this.name = name;
-    // this.streetName = streetName;
-    // this.codePostal = codePostal;
-    // this.country = country;
-    // this.latitude = latitude;
-    // this.longitude = longitude;
-    // this.historicalContext = historicalContext;
-    // this.importance = importance;
-    // this.type = type;
-    // }
 }
