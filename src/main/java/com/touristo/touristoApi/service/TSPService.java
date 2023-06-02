@@ -110,20 +110,20 @@ public class TSPService {
     }
 
     public static void main(String[] args) {
-        // Petit Test
-        Site site1 = new Site(1, "Department1", "Site 1", "Street 1", "12345", "City 1", "Country 1", 48.8566,2.3522, "Historical context 1", 0.8, "Type 1");
-        Site site2 = new Site(2, "Department2", "Site 2", "Street 2", "23456", "City 2", "Country 2", 51.5074,-0.1278, "Historical context 2", 0.6, "Type 2");
-        Site site3 = new Site(3, "Department3", "Site 3", "Street 3", "34567", "City 3", "Country 3", 51.5074, -0.1278, "Historical context 3", 0.9, "Type 3");
-        Site site4 = new Site(4, "Department4", "Site 4", "Street 4", "45678", "City 4", "Country 4", 48.8566, 2.3522, "Historical context 4", 0.7, "Type 4");
+        Site site1 = new Site(1, "City 1", 1, "Site 1", "Historical context 1", 0.8, 48.8566, 2.3522, "Site 1", "Type 1");
+        Site site2 = new Site(2, "City 2", 2, "Site 2", "Historical context 2", 0.6, 51.5074, -0.1278, "Site 2", "Type 2");
+        Site site3 = new Site(3, "City 3", 3, "Site 3", "Historical context 3", 0.9, 51.124, 0.1278, "Site 3", "Type 3");
+        Site site4 = new Site(4, "City 4", 4, "Site 4", "Historical context 4", 0.7, 40.86, 0.3522, "Site 4", "Type 4");
         Site[] sites = { site1, site2, site3, site4 };
         TSPService tsp = new TSPService(sites);
         List<Site> shortestPath = tsp.tsp();
-        double shortestDistance = tsp.calculateDuration(shortestPath);
+        double shortestDuration = tsp.calculateDuration(shortestPath);
         System.out.println("Best Path: ");
         for (Site site : shortestPath) {
             System.out.println(site.getName());
         }
-        System.out.println("Shortest Distance: " + shortestDistance);
-        System.out.println(tsp.calculateDurationBetweenSites(site1, site2));// Test de l'api
+        System.out.println("Shortest Distance: " + shortestDuration);
+        System.out.println(tsp.calculateDurationBetweenSites(site1, site2));
     }
+
 }

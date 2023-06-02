@@ -14,16 +14,14 @@ public class Site {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String department;
-    private String name;
-    private String streetName;
-    private String codePostal;
     private String city;
-    private String country;
-    private Double latitude;
-    private Double longitude;
+    private Integer code_departement;
+    private String description;
     private String historicalContext;
     private Double importance;
+    private Double latitude;
+    private Double longitude;
+    private String name;
     private String type;
 
 }
