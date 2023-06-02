@@ -19,22 +19,25 @@ public class SiteController {
     @Autowired
     SiteService siteService;
 
-    @PostMapping("/add")
-    public ResponseDTO createSite(@RequestBody Site site)
-            throws UnsupportedEncodingException {
-
-        return siteService.createSite(site);
-    }
-
-    @PostMapping("/add-many")
-    public ResponseEntity<apiResponse> createSites(@RequestBody List<Site> sites)
-            throws UnsupportedEncodingException {
-        for (Site site : sites) {
-            siteService.createSite(site);
-        }
-
-        return new ResponseEntity<apiResponse>(new apiResponse(true, "created multiple sites"), HttpStatus.CREATED);
-    }
+    /*
+     * @PostMapping("/add")
+     * public ResponseDTO createSite(@RequestBody Site site)
+     * throws UnsupportedEncodingException {
+     * 
+     * return siteService.createSite(site);
+     * }
+     * 
+     * @PostMapping("/add-many")
+     * public ResponseEntity<apiResponse> createSites(@RequestBody List<Site> sites)
+     * throws UnsupportedEncodingException {
+     * for (Site site : sites) {
+     * siteService.createSite(site);
+     * }
+     * 
+     * return new ResponseEntity<apiResponse>(new apiResponse(true,
+     * "created multiple sites"), HttpStatus.CREATED);
+     * }
+     */
 
     @GetMapping("/")
     public ResponseEntity<List<Site>> getSites() {
