@@ -1,6 +1,6 @@
 # Conventional Commit Document
 
-<div style="margin-top: 30px;margin-bottom: 30px;">
+<div style="margin-bottom: 40px;">
 <img src="https://raw.githubusercontent.com/Canestin/assets/main/img/conventional_commit_messages.png" alt="Touristo Banner"  height="150">
 </div>
 
