@@ -1,7 +1,7 @@
 # Touristo - Tourism has never been so easy
 
 <div style="margin-bottom: 30px;" align="center">
-<img src="https://raw.githubusercontent.com/Canestin/assets/main/img/touristo.png" alt="Touristo Banner"  height="230">
+<img src="https://raw.githubusercontent.com/Canestin/assets/main/img/touristo.png" alt="Touristo Banner"  height="150">
 </div>
 
 ## Project description
