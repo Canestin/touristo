@@ -13,7 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/site")
+@RequestMapping("/sites")
 public class SiteController {
 
     @Autowired
@@ -39,7 +39,7 @@ public class SiteController {
      * }
      */
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<Site>> getSites() {
         List<Site> body = siteService.listSites();
         return new ResponseEntity<>(body, HttpStatus.OK);

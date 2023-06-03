@@ -64,3 +64,4 @@ server/.flattened-pom.xml
 server/secrets.yml
 server/.gradletasknamecache
 server/.sts4-cache
+server/src/main/resources/application.properties
