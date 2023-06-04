@@ -17,7 +17,7 @@ public class Site {
     private String city;
     private Integer code_departement;
     private String description;
-    private String historicalContext;
+    private String historical_context;
     private Double importance;
     private Double latitude;
     private Double longitude;
