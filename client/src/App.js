@@ -15,7 +15,9 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/circuits/:circuitId" element={<Circuit />} />
+        <Route path="/circuits/:circuitId" element={<Circuit />}>
+          <Route path=":dayId" element={<Circuit />} />
+        </Route>
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>

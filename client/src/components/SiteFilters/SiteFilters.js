@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./SiteFilters.module.scss";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { departments, historicalContexts } from "../../utils";
+import { createCircuit } from "../../services/circuitService";
+import { useNavigate } from "react-router-dom";
 
 const SiteFilters = () => {
   const [loading, setLoading] = useState(false);
@@ -11,11 +13,26 @@ const SiteFilters = () => {
   const [numberOfSitesPerDay, setNumberOfSitesPerDay] = useState(3);
   const [type, setType] = useState("");
   const [historicalContext, setHistoricalContext] = useState("");
+  const [circuitId, setCircuitId] = useState(null);
 
-  const handleFilterSubmit = () => {
+  const navigate = useNavigate();
+
+  const handleFilterSubmit = async () => {
     if (loading) return;
     setLoading(true);
+
+    const circuit = await createCircuit(
+      "departement=75&latitude=48.877059&longitude=2.329685"
+    );
+    setCircuitId(circuit.data.id);
   };
+
+  useEffect(() => {
+    if (circuitId) {
+      setLoading(false);
+      navigate(`/circuits/${circuitId}`);
+    }
+  }, [circuitId]);
 
   return (
     <div className={styles.container}>

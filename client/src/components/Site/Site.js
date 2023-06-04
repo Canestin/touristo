@@ -7,14 +7,16 @@ const itinerary = {
   origin: "48.8871648,2.3844529",
   destination: "48.899594,2.344794",
 };
-const Site = () => {
+const Site = ({ site, number, nextSite }) => {
   const [objectData, setObjectData] = useState(null);
 
   useEffect(() => {
     const getSite = async () => {
-      const { data: site } = await siteService.getSiteById(1);
+      // const { data: site } = await siteService.getSiteById(
+      //   "f7b52566-a8ea-4b36-a1f7-3a1f7d0e5bca"
+      // );
 
-      if (!site) return;
+      // if (!site) return;
 
       setObjectData({
         ...site,
@@ -29,25 +31,42 @@ const Site = () => {
     <div className="object-container">
       {objectData ? (
         <>
-          <h1>1. {objectData.name}</h1>
+          <h1>
+            {number}. {objectData.name}
+          </h1>
           <img className="object-img" src={objectData.image} alt="Site" />
           <div className="object-details">
             <div className="object-info">
               <p>City: {objectData.city}</p>
               <p>Department : {objectData.code_departement}</p>
-              <p>Description: {objectData.description}</p>
-              <p>Historical Context: {objectData.historicalContext}</p>
+              {!!objectData.description && (
+                <p>Description: {objectData.description}</p>
+              )}
+
+              {!!objectData.historicalContext && (
+                <p>Historical Context: {objectData.historicalContext}</p>
+              )}
             </div>
           </div>
-          <a
-            target="_blank"
-            href={`https://www.google.com/maps/dir/${itinerary.origin}/${itinerary.destination}`}
-          >
-            Itinerary
-          </a>
+
+          <span>
+            How do I get there?{" "}
+            <a
+              target="_blank"
+              href={`https://www.google.com/maps?q=${objectData.latitude},${objectData.longitude}`}
+            >
+              Itinerary
+            </a>
+          </span>
         </>
       ) : (
-        <p>Loading...</p>
+        <div className="skeleton">
+          <div className="title"></div>
+          <div className="image"></div>
+          <div className="details detail1"></div>
+          <div className="details detail2"></div>
+          <div className="details detail3"></div>
+        </div>
       )}
     </div>
   );

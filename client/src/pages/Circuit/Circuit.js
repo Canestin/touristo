@@ -1,29 +1,59 @@
-import React, { useEffect } from "react";
-// import { getCircuitById } from "../../services/circuitService";
+import React, { useEffect, useState } from "react";
 import Site from "../../components/Site/Site";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import styles from "./Circuit.module.scss";
+import { getCircuitById } from "../../services/circuitService";
+import { useParams, useNavigate } from "react-router-dom";
 
 const Circuit = () => {
-  // const [objectData, setObjectData] = useState(null);
+  const [sitesOfTheDay, setSitesOfTheDay] = useState([]);
+  const [circuit, setCircuit] = useState(null);
+  const { circuitId, dayId } = useParams();
+  const navigate = useNavigate();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (!dayId || isNaN(dayId) || dayId < 1) {
+      navigate("1");
+      return;
+    }
+    if (circuit && dayId > circuit.numberOfDays) {
+      navigate("1");
+      return;
+    }
+    if (circuit) {
+      const journeys = circuit.journeys.map((j) => j.sites);
+      const sites = journeys[dayId - 1].slice(1, -1);
+      setSitesOfTheDay(sites);
+    }
+  }, [dayId, circuit?.id]);
+
+  useEffect(() => {
+    const fetchCircuit = async () => {
+      const { data: c } = await getCircuitById(circuitId);
+      setCircuit(c);
+    };
+
+    fetchCircuit();
+  }, [circuitId]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.sidebar}>
-        <Sidebar />
-      </div>
-      <div className={styles.sites}>
-        <h1>Your Tourist Circuit : Day 1</h1>
-        <Site />
-        <Site />
-        <Site />
-        <Site />
-        <Site />
-        <Site />
-      </div>
-    </div>
+    <>
+      {circuit ? (
+        <div className={styles.container}>
+          <div className={styles.sidebar}>
+            <Sidebar numberOfDays={circuit.numberOfDays} />
+          </div>
+          <div className={styles.sites}>
+            <h1>Your Tourist Circuit : Day {dayId}</h1>
+            {sitesOfTheDay.map((site, i) => (
+              <Site number={i + 1} key={site.id} site={site} />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <h1>Chargement...</h1>
+      )}
+    </>
   );
 };
 
