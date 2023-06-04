@@ -24,7 +24,7 @@ public class SiteService {
 
     }
 
-    public Optional<Site> getSiteById(Integer siteId) {
+    public Optional<Site> getSiteById(UUID siteId) {
         return siteRepository.findById(siteId);
     }
 

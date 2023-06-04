@@ -9,10 +9,16 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
-public interface SiteRepository extends JpaRepository<Site, Integer> {
+public interface SiteRepository extends JpaRepository<Site, UUID> {
 
+    @Query("SELECT s FROM Site s WHERE s.code_departement= :departement ORDER BY s.importance DESC LIMIT 15")
+
+
+    List<Site> findSitesByParameters(String departement);
+  /*
     @Query("SELECT s FROM Site s WHERE s.city LIKE CONCAT('%', :city, '%') " +
             "AND s.code_departement = :codeDepartment AND s.type = :type " +
             "AND s.historical_context = :historicalContext " +
@@ -23,5 +29,6 @@ public interface SiteRepository extends JpaRepository<Site, Integer> {
                                      @Param("codeDepartment") String codeDepartment,
                                      @Param("type") String type,
                                      @Param("historicalContext") String historicalContext);
+   */
 
 }
