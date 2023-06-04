@@ -1,3 +1,5 @@
+package com.touristo.touristoApi.controller;
+
 import com.touristo.touristoApi.model.Journey;
 import com.touristo.touristoApi.model.Site;
 import com.touristo.touristoApi.service.JourneyService;
