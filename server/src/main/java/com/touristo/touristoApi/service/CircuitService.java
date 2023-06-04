@@ -5,12 +5,9 @@ import com.touristo.touristoApi.model.Circuit;
 import com.touristo.touristoApi.model.Journey;
 import com.touristo.touristoApi.model.Site;
 import com.touristo.touristoApi.repository.CircuitRepository;
-import com.touristo.touristoApi.repository.JourneyRepository;
 import com.touristo.touristoApi.repository.SiteRepository;
-import com.touristo.touristoApi.repository.SiteRepositoryImpl;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,10 +22,10 @@ public class CircuitService {
     CircuitRepository circuitRepository;
 
     @Autowired
-    SiteRepositoryImpl siteRepository;
+    SiteRepository siteRepository;
 
     @Transactional
-    public Circuit createCircuit(String city, Optional<String> codeDepartment, Optional<String> type,
+    public Circuit createCircuit(Optional<String> city, String codeDepartment, Optional<String> type,
                                  Integer numberOfDays, Optional<Integer> numberOfSitesPerDay,
                                  Optional<String> historicalContext, Double latitude, Double longitude) {
         System.out.println(city+" "+ codeDepartment);
@@ -38,8 +35,8 @@ public class CircuitService {
         home.setLatitude(latitude);
         home.setLongitude(longitude);
 
-        List<Site> sites = siteRepository.findSitesByParameters(city, codeDepartment.orElse(null), type.orElse(null),
-                numberOfDays, numberOfSitesPerDay.orElse(5), historicalContext.orElse(null));
+        List<Site> sites = siteRepository.findSitesByParameters(city.orElse(null), codeDepartment, type.orElse(null),
+                 historicalContext.orElse(null));
         System.out.println(sites);
 
         Circuit circuit = new Circuit();
@@ -58,7 +55,8 @@ public class CircuitService {
                     siteIndex++;
                 }
             }
-
+            TSPService tspService = new TSPService(journey.getSites(), home);
+            journey.setSites(tspService.solveTSP());
             circuit.getJourneys().add(journey);
         }
 

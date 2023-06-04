@@ -13,18 +13,15 @@ import java.util.List;
 @Repository
 public interface SiteRepository extends JpaRepository<Site, Integer> {
 
-    @Query("SELECT s FROM Site s WHERE s.city = :city " +
+    @Query("SELECT s FROM Site s WHERE s.city LIKE CONCAT('%', :city, '%') " +
             "AND s.code_departement = :codeDepartment AND s.type = :type " +
             "AND s.historical_context = :historicalContext " +
-            "AND (:numberOfDays IS NULL OR :numberOfSitePerDay IS NULL) " +
-            "ORDER BY s.importance DESC ")
+            "ORDER BY s.importance DESC")
 
 
     List<Site> findSitesByParameters(@Param("city") String city,
                                      @Param("codeDepartment") String codeDepartment,
                                      @Param("type") String type,
-                                     @Param("numberOfDays")Integer numberOfDays,
-                                     @Param("numberOfSitePerDay")Integer numberOfSitePerDay,
                                      @Param("historicalContext") String historicalContext);
 
 }
