@@ -2,7 +2,7 @@
 
 ### client
 
-.idea
+
 .DS_Store
 **/.DS_Store
 client/node_modules
@@ -24,6 +24,7 @@ client/yarn-error.log*
 ### server
 
 server/*#
+server/.idea
 server/*.iml
 server/*.ipr
 server/*.iws
