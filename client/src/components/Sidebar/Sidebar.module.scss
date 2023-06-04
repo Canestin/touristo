@@ -1,0 +1,49 @@
+.container {
+  width: 100%;
+  height: 100vh;
+
+  .logo {
+    display: flex;
+    justify-content: center;
+    img {
+      width: 80%;
+      margin: 20px auto;
+    }
+  }
+
+  .days {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    > div {
+      background-color: lightgray;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgb(166, 163, 163);
+      }
+
+      .active {
+        background-color: rgb(166, 163, 163);
+      }
+
+      * {
+        color: black;
+      }
+
+      *:first-child {
+        width: 50px;
+      }
+      span {
+        flex: 1;
+        font-weight: bold;
+        font-size: 18px;
+      }
+    }
+  }
+}
