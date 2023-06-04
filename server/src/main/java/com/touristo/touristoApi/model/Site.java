@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
+import javax.management.ConstructorParameters;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -12,8 +16,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "sites")
 public class Site {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String city;
     private Integer code_departement;
     private String description;

@@ -12,14 +12,13 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "circuits")
-public class Circuit {
+@Table(name = "journeys")
+public class Journey {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private Integer numberOfDays;
 
     @ManyToMany
-    @JoinTable(name = "circuit_site", joinColumns = @JoinColumn(name = "circuit_id"), inverseJoinColumns = @JoinColumn(name = "site_id"))
+    @JoinTable(name = "journey_site", joinColumns = @JoinColumn(name = "journey_id"), inverseJoinColumns = @JoinColumn(name = "site_id"))
     private List<Site> sites;
 }

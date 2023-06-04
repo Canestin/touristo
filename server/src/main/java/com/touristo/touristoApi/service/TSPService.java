@@ -1,64 +1,45 @@
 package com.touristo.touristoApi.service;
 
 import com.touristo.touristoApi.model.Site;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class TSPService {
-    private Site[] sites;
-    private int numSites;
+    private List<Site> sites;
+    private Site startSite; // New variable for the start site
+    private double[][] distance;
+    private int numCities;
+    private int[][] memo;
 
-    public TSPService(Site[] sites) {
+    public TSPService(List<Site> sites, Site startSite) { // Modified constructor
         this.sites = sites;
-        this.numSites = sites.length;
+        this.startSite = startSite;
+        this.numCities = sites.size();
+        this.distance = new double[numCities][numCities];
+        this.memo = new int[numCities][1 << numCities];
     }
 
-    public List<Site> tsp() {
-        List<Site> bestPath = new ArrayList<>();
-        List<Site> currentPath = new ArrayList<>();
-        double[] minDuration = { Double.MAX_VALUE };
-
-        permute(new ArrayList<>(List.of(sites)), currentPath, minDuration, bestPath);
-
-        return bestPath;
-    }
-
-    private void permute(List<Site> sites, List<Site> currentPath, double[] minDuration, List<Site> bestPath) {
-        if (sites.isEmpty()) {
-            double duration = calculateDuration(currentPath);
-            if (duration < minDuration[0]) {
-                minDuration[0] = duration;
-                bestPath.clear();
-                bestPath.addAll(currentPath);
+    public void calculateDurations() {
+        for (int i = 0; i < numCities; i++) {
+            Site site1 = sites.get(i);
+            for (int j = 0; j < numCities; j++) {
+                Site site2 = sites.get(j);
+                distance[i][j] = calculateDurationBetweenSites(site1, site2);
             }
-            return;
-        }
-
-        for (int i = 0; i < sites.size(); i++) {
-            Site currentSite = sites.get(i);
-            List<Site> remainingSites = new ArrayList<>(sites);
-            remainingSites.remove(i);
-            currentPath.add(currentSite);
-
-            permute(remainingSites, currentPath, minDuration, bestPath);
-
-            currentPath.remove(currentSite);
         }
     }
 
-
-    private double calculateDuration(List<Site> path) {
+    private double calculateTotalDuration(List<Site> path) {
         double duration = 0;
         for (int i = 0; i < path.size() - 1; i++) {
             Site currentSite = path.get(i);
@@ -66,6 +47,64 @@ public class TSPService {
             duration += calculateDurationBetweenSites(currentSite, nextSite);
         }
         return duration;
+    }
+
+    public List<Site> solveTSP() {
+        calculateDurations();
+
+        // Initialize memoization table
+        for (int i = 0; i < numCities; i++) {
+            for (int j = 0; j < (1 << numCities); j++) {
+                memo[i][j] = -1;
+            }
+        }
+
+        // Find the index of the start site
+        int startIndex = sites.indexOf(startSite);
+
+        // Call the recursive function to solve TSP
+        int mask = (1 << numCities) - 1;
+        int result = tsp(startIndex, mask);
+
+        // Reconstruct the path
+        List<Site> path = new ArrayList<>();
+        path.add(startSite); // Start from the specified start site
+        int currCity = startIndex;
+
+        while (mask != 0) {
+            int nextCity = memo[currCity][mask];
+            if(nextCity!= startIndex){path.add(sites.get(nextCity));}
+            mask ^= (1 << nextCity);
+            currCity = nextCity;
+        }
+        path.add(startSite);
+        return path;
+    }
+
+    private int tsp(int city, int mask) {
+        if (mask == 0) {
+            return 0; // All sites have been visited, return 0
+        }
+
+        if (memo[city][mask] != -1) {
+            return memo[city][mask]; // Return memoized value
+        }
+
+        int minDistance = Integer.MAX_VALUE;
+
+        for (int nextCity = 0; nextCity < numCities; nextCity++) {
+            if ((mask & (1 << nextCity)) != 0) {
+                int newMask = mask ^ (1 << nextCity);
+                int distanceToNextCity = (int) distance[city][nextCity] + tsp(nextCity, newMask);
+
+                if (distanceToNextCity < minDistance) {
+                    minDistance = distanceToNextCity;
+                    memo[city][mask] = nextCity;
+                }
+            }
+        }
+
+        return minDistance;
     }
 
     private double calculateDurationBetweenSites(Site site1, Site site2) {
@@ -110,20 +149,23 @@ public class TSPService {
     }
 
     public static void main(String[] args) {
-        Site site1 = new Site(1, "City 1", 1, "Site 1", "Historical context 1", 0.8, 48.8566, 2.3522, "Site 1", "Type 1");
-        Site site2 = new Site(2, "City 2", 2, "Site 2", "Historical context 2", 0.6, 51.5074, -0.1278, "Site 2", "Type 2");
-        Site site3 = new Site(3, "City 3", 3, "Site 3", "Historical context 3", 0.9, 51.124, 0.1278, "Site 3", "Type 3");
-        Site site4 = new Site(4, "City 4", 4, "Site 4", "Historical context 4", 0.7, 40.86, 0.3522, "Site 4", "Type 4");
+
+        // Create a list of sites
+        Site site1 = new Site(UUID.randomUUID(), "City 1", 1, "Site 1", "Historical context 1", 0.8, 48.8566, 2.3522, "Site 1", "Type 1");
+        Site site2 = new Site(UUID.randomUUID(), "City 2", 2, "Site 2", "Historical context 2", 0.6, 51.5074, -0.1278, "Site 2", "Type 2");
+        Site site3 = new Site(UUID.randomUUID(), "City 3", 3, "Site 3", "Historical context 3", 0.9, 51.124, 0.1278, "Site 3", "Type 3");
+        Site site4 = new Site(UUID.randomUUID(), "City 4", 4, "Site 4", "Historical context 4", 0.7, 40.86, 0.3522, "Site 4", "Type 4");
         Site[] sites = { site1, site2, site3, site4 };
-        TSPService tsp = new TSPService(sites);
-        List<Site> shortestPath = tsp.tsp();
-        double shortestDuration = tsp.calculateDuration(shortestPath);
-        System.out.println("Best Path: ");
-        for (Site site : shortestPath) {
+
+        TSPService tspSolver = new TSPService(List.of(sites), site2); // Pass the desired start site
+
+        List<Site> path = tspSolver.solveTSP();
+        Double totalDuration = tspSolver.calculateTotalDuration(path);
+        System.out.println("Optimal TSP path:");
+        for (Site site : path) {
             System.out.println(site.getName());
         }
-        System.out.println("Shortest Distance: " + shortestDuration);
-        System.out.println(tsp.calculateDurationBetweenSites(site1, site2));
-    }
 
+        System.out.println("shortest duration: "+ totalDuration);
+    }
 }
