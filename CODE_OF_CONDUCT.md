@@ -43,4 +43,3 @@ b. Ensure that all content, images, and assets used in the project are royalty-f
 a. Encourage positivity and team spirit by recognizing the accomplishments and contributions of each team member.
 b. Be constructive in your reviews and avoid negative or discouraging comments.
 c. Work together to overcome challenges and achieve project goals.
-
