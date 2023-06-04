@@ -26,8 +26,11 @@ public class CircuitController {
     public Circuit createCircuit(
             @RequestParam String departement,
             @RequestParam Double latitude,
-            @RequestParam Double longitude) {
-        return circuitService.createCircuit(departement, latitude, longitude);
+            @RequestParam Double longitude,
+            @RequestParam Integer numberOfDays,
+            @RequestParam(required = false, defaultValue = "3") Integer numberOfSitesPerDay
+    ) {
+        return circuitService.createCircuit(departement, latitude, longitude, numberOfDays, numberOfSitesPerDay);
         /*
          * @RequestParam Optional<String> city,
          * 
