@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/sites")
@@ -35,7 +36,7 @@ public class SiteController {
     }
 
     @GetMapping("/{siteId}")
-    public ResponseEntity<Site> getSiteById(@PathVariable Integer siteId) {
+    public ResponseEntity<Site> getSiteById(@PathVariable UUID siteId) {
         Optional<Site> site = siteService.getSiteById(siteId);
         return site.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
