@@ -29,6 +29,20 @@ public class CircuitController {
             @RequestParam Double longitude
     ) {
       return circuitService.createCircuit(departement, latitude, longitude);
+        /*
+           @RequestParam Optional<String> city,
+           @RequestParam String codeDepartment,
+           @RequestParam Optional<String> type,
+           @RequestParam Integer numberOfDays,
+           @RequestParam Optional<Integer> numberOfSitesPerDay,
+           @RequestParam Optional<String> historicalContext,
+           @RequestParam Double latitude,
+           @RequestParam Double longitude
+    ) {
+      return circuitService.createCircuit(city, codeDepartment, type,
+                numberOfDays, numberOfSitesPerDay, historicalContext, latitude, longitude);
+      */
+
     }
 
     @GetMapping("/{circuitId}")

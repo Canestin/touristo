@@ -24,12 +24,14 @@ public class CircuitService {
 
     @Autowired
     SiteRepository siteRepository;
+
     @Autowired
     JourneyService journeyService;
 
     @Transactional
     public Circuit createCircuit(String departement, Double latitude, Double longitude) {
        // System.out.println(city+" "+ codeDepartment);
+
         Site home = new Site();
         home.setId(UUID.randomUUID());
         home.setName("Home");
@@ -48,16 +50,19 @@ public class CircuitService {
             journey.setSites(new ArrayList<>()); // Initialize the list of sites in the journey
 
             for (int j = 0; j < 3; j++) {
+
                 if (siteIndex < sites.size()) {
                     Site site = sites.get(siteIndex);
                     journey.getSites().add(site);
                     siteIndex++;
                 }
             }
+          
             journey.getSites().add(home);
             TSPService tspService = new TSPService(journey.getSites(), home);
             journey.setSites(tspService.solveTSP());
             journey = journeyService.createJourney(journey.getSites());
+
             circuit.getJourneys().add(journey);
         }
 

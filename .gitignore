@@ -2,6 +2,7 @@
 
 ### client
 
+
 .DS_Store
 **/.DS_Store
 client/node_modules
@@ -10,6 +11,7 @@ client/.pnp.js
 client/coverage
 client/build
 client/.DS_Store
+client/.env
 client/.env.local
 client/.env.development.local
 client/.env.test.local
@@ -22,6 +24,7 @@ client/yarn-error.log*
 ### server
 
 server/*#
+server/.idea
 server/*.iml
 server/*.ipr
 server/*.iws
