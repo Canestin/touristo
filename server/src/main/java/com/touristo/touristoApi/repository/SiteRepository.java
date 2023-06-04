@@ -14,7 +14,7 @@ import java.util.UUID;
 @Repository
 public interface SiteRepository extends JpaRepository<Site, UUID> {
 
-        @Query("SELECT s FROM Site s WHERE s.code_departement= :departement ORDER BY s.importance DESC LIMIT 15")
+        @Query("SELECT s FROM Site s WHERE s.code_departement= :departement ORDER BY s.importance DESC LIMIT 30")
 
         List<Site> findSitesByParameters(String departement);
         /*
