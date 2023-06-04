@@ -22,26 +22,32 @@ public class CircuitController {
         this.circuitService = circuitService;
     }
 
-    @PostMapping
+    @GetMapping
     public Circuit createCircuit(
             @RequestParam String departement,
             @RequestParam Double latitude,
-            @RequestParam Double longitude
-    ) {
-      return circuitService.createCircuit(departement, latitude, longitude);
+            @RequestParam Double longitude) {
+        return circuitService.createCircuit(departement, latitude, longitude);
         /*
-           @RequestParam Optional<String> city,
-           @RequestParam String codeDepartment,
-           @RequestParam Optional<String> type,
-           @RequestParam Integer numberOfDays,
-           @RequestParam Optional<Integer> numberOfSitesPerDay,
-           @RequestParam Optional<String> historicalContext,
-           @RequestParam Double latitude,
-           @RequestParam Double longitude
-    ) {
-      return circuitService.createCircuit(city, codeDepartment, type,
-                numberOfDays, numberOfSitesPerDay, historicalContext, latitude, longitude);
-      */
+         * @RequestParam Optional<String> city,
+         * 
+         * @RequestParam String codeDepartment,
+         * 
+         * @RequestParam Optional<String> type,
+         * 
+         * @RequestParam Integer numberOfDays,
+         * 
+         * @RequestParam Optional<Integer> numberOfSitesPerDay,
+         * 
+         * @RequestParam Optional<String> historicalContext,
+         * 
+         * @RequestParam Double latitude,
+         * 
+         * @RequestParam Double longitude
+         * ) {
+         * return circuitService.createCircuit(city, codeDepartment, type,
+         * numberOfDays, numberOfSitesPerDay, historicalContext, latitude, longitude);
+         */
 
     }
 
@@ -52,7 +58,7 @@ public class CircuitController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Circuit>> getAllCircuits() {
         List<Circuit> circuits = circuitService.getCircuits();
         return ResponseEntity.ok(circuits);

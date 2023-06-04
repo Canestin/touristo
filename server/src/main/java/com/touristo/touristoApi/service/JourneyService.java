@@ -19,12 +19,12 @@ public class JourneyService {
     @Autowired
     JourneyRepository journeyRepository;
 
-
     @Transactional
     public Journey createJourney(List<Site> sites) {
 
         Journey journey = new Journey();
         journey.setSites(sites);
+        System.out.println("return journeyRepository.save(journey)");
         return journeyRepository.save(journey);
     }
 

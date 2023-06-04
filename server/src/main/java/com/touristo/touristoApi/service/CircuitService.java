@@ -1,6 +1,5 @@
 package com.touristo.touristoApi.service;
 
-
 import com.touristo.touristoApi.model.Circuit;
 import com.touristo.touristoApi.model.Journey;
 import com.touristo.touristoApi.model.Site;
@@ -30,15 +29,16 @@ public class CircuitService {
 
     @Transactional
     public Circuit createCircuit(String departement, Double latitude, Double longitude) {
-       // System.out.println(city+" "+ codeDepartment);
+        // System.out.println(city+" "+ codeDepartment);
 
         Site home = new Site();
-        home.setId(UUID.randomUUID());
         home.setName("Home");
         home.setLatitude(latitude);
         home.setLongitude(longitude);
+        siteRepository.save(home);
         List<Site> sites = siteRepository.findSitesByParameters(departement);
-        System.out.println(sites);
+
+        // System.out.println(sites);
 
         Circuit circuit = new Circuit();
         circuit.setNumberOfDays(3);
@@ -57,30 +57,28 @@ public class CircuitService {
                     siteIndex++;
                 }
             }
-          
+
             journey.getSites().add(home);
             TSPService tspService = new TSPService(journey.getSites(), home);
             journey.setSites(tspService.solveTSP());
             journey = journeyService.createJourney(journey.getSites());
 
             circuit.getJourneys().add(journey);
+
         }
 
-       return circuitRepository.save(circuit);
+        return circuitRepository.save(circuit);
 
     }
-
 
     public Optional<Circuit> getCircuitById(UUID id) throws Exception {
         Optional<Circuit> circuit = circuitRepository.findById(id);
         return circuit;
     }
 
-    public  List<Circuit> getCircuits(){
+    public List<Circuit> getCircuits() {
         List<Circuit> circuits = circuitRepository.findAll();
         return circuits;
     }
 
-
 }
-

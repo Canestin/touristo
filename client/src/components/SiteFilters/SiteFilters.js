@@ -15,7 +15,6 @@ const SiteFilters = () => {
   const handleFilterSubmit = () => {
     if (loading) return;
     setLoading(true);
-    alert("OK");
   };
 
   return (
