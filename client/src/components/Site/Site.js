@@ -1,22 +1,11 @@
 import React, { useEffect, useState } from "react";
-import siteService from "../../services/siteService";
-import { getPlacePhotos } from "../../utils/index";
 import "./Site.scss";
 
 const Site = ({ site, number }) => {
   const [objectData, setObjectData] = useState(null);
 
-  console.log("Site", site);
   useEffect(() => {
-    const getSite = async () => {
-      const photo = await getPlacePhotos(site.latitude, site.longitude);
-      setObjectData({
-        ...site,
-        image: photo,
-      });
-    };
-
-    getSite();
+    setObjectData(site);
   }, [site.id]);
 
   return (
@@ -26,7 +15,6 @@ const Site = ({ site, number }) => {
           <h1>
             {number}. {objectData.name}
           </h1>
-          {/* <img className="object-img" src={objectData.image} alt="Site" /> */}
           <div className="object-details">
             <div className="object-info">
               <p>City: {objectData.city}</p>
@@ -54,7 +42,6 @@ const Site = ({ site, number }) => {
       ) : (
         <div className="skeleton">
           <div className="title"></div>
-          {/* <div className="image"></div> */}
           <div className="details detail1"></div>
           <div className="details detail2"></div>
           <div className="details detail3"></div>

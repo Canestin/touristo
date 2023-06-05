@@ -31,3 +31,34 @@
     padding: 0 25vw;
   }
 }
+
+@media only screen and (max-width: 760px) {
+  .container {
+    .header {
+      margin: 10px 30px;
+      padding-bottom: 10px;
+
+      h2 {
+        max-width: 35vw;
+        font-size: 12px;
+      }
+
+      > a {
+        span {
+          font-size: 15px;
+        }
+      }
+    }
+
+    .logo {
+      img {
+        width: 170px;
+        margin: 40px auto;
+      }
+    }
+
+    .filters {
+      padding: 0 10px;
+    }
+  }
+}

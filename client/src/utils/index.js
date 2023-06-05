@@ -1,26 +1,3 @@
-import axios from "axios";
-import { FLICKR_API_BASE_URL } from "../config";
-
-const getPlacePhotos = async (latitude, longitude) => {
-  const apiUrl = `${FLICKR_API_BASE_URL}&lat=${latitude}&lon=${longitude}`;
-  console.log("API URL", apiUrl);
-
-  try {
-    const response = await axios.get(apiUrl);
-    const photos = response.data.photos.photo;
-
-    const image = photos.map(
-      (photo) =>
-        `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`
-    )[1];
-
-    return image;
-  } catch (error) {
-    console.error("Error recovering photos :", error);
-    return null;
-  }
-};
-
 const departments = {
   "01": { department: "Ain", capital: "Bourg-en-Bresse" },
   "02": { department: "Aisne", capital: "Laon" },
@@ -148,4 +125,4 @@ const historicalContexts = [
   "Surrealist movement",
 ];
 
-export { getPlacePhotos, departments, historicalContexts };
+export { departments, historicalContexts };
