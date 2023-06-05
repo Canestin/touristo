@@ -1,2 +1,0 @@
-REACT_APP_FLICKR_API_KEY=
-REACT_APP_FLICKR_API_BASE_URL=https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=REACT_APP_FLICKR_API_KEY&format=json&nojsoncallback=1
