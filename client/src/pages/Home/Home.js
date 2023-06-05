@@ -3,9 +3,7 @@ import logo from "../../images/logo.png";
 import styles from "./Home.module.scss";
 import SiteFilters from "../../components/SiteFilters/SiteFilters";
 import { FaExternalLinkAlt } from "react-icons/fa";
-// import { Navigate } from "react-router-dom";
 
-// const circuitId = "f1cad218-3987-4b55-a976-a529f75f5c1e";
 const Home = () => {
   return (
     <div className={styles.container}>
@@ -18,7 +16,7 @@ const Home = () => {
       <div className={styles.logo}>
         <img src={logo} alt="logo" />
       </div>
-      {/* <Navigate to={`/circuits/${circuitId}`} /> */}
+
       <div className={styles.filters}>
         <SiteFilters />
       </div>

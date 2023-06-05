@@ -3,29 +3,21 @@ import siteService from "../../services/siteService";
 import { getPlacePhotos } from "../../utils/index";
 import "./Site.scss";
 
-const itinerary = {
-  origin: "48.8871648,2.3844529",
-  destination: "48.899594,2.344794",
-};
-const Site = ({ site, number, nextSite }) => {
+const Site = ({ site, number }) => {
   const [objectData, setObjectData] = useState(null);
 
+  console.log("Site", site);
   useEffect(() => {
     const getSite = async () => {
-      // const { data: site } = await siteService.getSiteById(
-      //   "f7b52566-a8ea-4b36-a1f7-3a1f7d0e5bca"
-      // );
-
-      // if (!site) return;
-
+      const photo = await getPlacePhotos(site.latitude, site.longitude);
       setObjectData({
         ...site,
-        image: await getPlacePhotos(site.latitude, site.longitude),
+        image: photo,
       });
     };
 
     getSite();
-  }, []);
+  }, [site.id]);
 
   return (
     <div className="object-container">
@@ -34,7 +26,7 @@ const Site = ({ site, number, nextSite }) => {
           <h1>
             {number}. {objectData.name}
           </h1>
-          <img className="object-img" src={objectData.image} alt="Site" />
+          {/* <img className="object-img" src={objectData.image} alt="Site" /> */}
           <div className="object-details">
             <div className="object-info">
               <p>City: {objectData.city}</p>
@@ -43,8 +35,8 @@ const Site = ({ site, number, nextSite }) => {
                 <p>Description: {objectData.description}</p>
               )}
 
-              {!!objectData.historicalContext && (
-                <p>Historical Context: {objectData.historicalContext}</p>
+              {!!objectData.historical_context && (
+                <p>Historical Context: {objectData.historical_context}</p>
               )}
             </div>
           </div>
@@ -62,7 +54,7 @@ const Site = ({ site, number, nextSite }) => {
       ) : (
         <div className="skeleton">
           <div className="title"></div>
-          <div className="image"></div>
+          {/* <div className="image"></div> */}
           <div className="details detail1"></div>
           <div className="details detail2"></div>
           <div className="details detail3"></div>

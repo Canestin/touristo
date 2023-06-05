@@ -41,17 +41,20 @@ const Circuit = () => {
       {circuit ? (
         <div className={styles.container}>
           <div className={styles.sidebar}>
-            <Sidebar numberOfDays={circuit.numberOfDays} />
+            <Sidebar
+              setSitesOfTheDay={setSitesOfTheDay}
+              numberOfDays={circuit.numberOfDays}
+            />
           </div>
           <div className={styles.sites}>
             <h1>Your Tourist Circuit : Day {dayId}</h1>
             {sitesOfTheDay.map((site, i) => (
-              <Site number={i + 1} key={site.id} site={site} />
+              <Site number={i + 1} key={i} site={site} />
             ))}
           </div>
         </div>
       ) : (
-        <h1>Chargement...</h1>
+        <div style={{ textAlign: "center", marginTop: 300 }}>Chargement...</div>
       )}
     </>
   );

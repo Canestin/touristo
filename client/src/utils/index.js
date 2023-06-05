@@ -3,6 +3,7 @@ import { FLICKR_API_BASE_URL } from "../config";
 
 const getPlacePhotos = async (latitude, longitude) => {
   const apiUrl = `${FLICKR_API_BASE_URL}&lat=${latitude}&lon=${longitude}`;
+  console.log("API URL", apiUrl);
 
   try {
     const response = await axios.get(apiUrl);
@@ -11,7 +12,7 @@ const getPlacePhotos = async (latitude, longitude) => {
     const image = photos.map(
       (photo) =>
         `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`
-    )[0];
+    )[1];
 
     return image;
   } catch (error) {

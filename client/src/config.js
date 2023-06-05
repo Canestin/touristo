@@ -1,1 +1,0 @@
-export const FLICKR_API_BASE_URL = process.env.REACT_APP_FLICKR_API_BASE_URL;
