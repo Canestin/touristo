@@ -22,7 +22,7 @@ const SiteFilters = () => {
     setLoading(true);
 
     const circuit = await createCircuit(
-      "departement=75&latitude=48.877059&longitude=2.329685"
+      "departement=75&latitude=48.906737&longitude=2.3373826"
     );
     setCircuitId(circuit.data.id);
   };
