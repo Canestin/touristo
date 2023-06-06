@@ -39,7 +39,7 @@ public class TSPService {
         }
     }
 
-    private double calculateTotalDuration(List<Site> path) {
+    protected double calculateTotalDuration(List<Site> path) {
         double duration = 0;
         for (int i = 0; i < path.size() - 1; i++) {
             Site currentSite = path.get(i);
@@ -73,7 +73,9 @@ public class TSPService {
 
         while (mask != 0) {
             int nextCity = memo[currCity][mask];
-            if(nextCity!= startIndex){path.add(sites.get(nextCity));}
+            if (nextCity != startIndex) {
+                path.add(sites.get(nextCity));
+            }
             mask ^= (1 << nextCity);
             currCity = nextCity;
         }
@@ -81,7 +83,7 @@ public class TSPService {
         return path;
     }
 
-    private int tsp(int city, int mask) {
+    public int tsp(int city, int mask) {
         if (mask == 0) {
             return 0; // All sites have been visited, return 0
         }
@@ -107,7 +109,7 @@ public class TSPService {
         return minDistance;
     }
 
-    private double calculateDurationBetweenSites(Site site1, Site site2) {
+    double calculateDurationBetweenSites(Site site1, Site site2) {
         String origin = site1.getLatitude() + "," + site1.getLongitude();
         String destination = site2.getLatitude() + "," + site2.getLongitude();
         String apiKey = "AIzaSyBjU1gZUIMq0oOlmgnUfg44WtxNJp0Agio"; // A metttre en variable d'environnement
@@ -151,10 +153,14 @@ public class TSPService {
     public static void main(String[] args) {
 
         // Create a list of sites
-        Site site1 = new Site(UUID.randomUUID(), "City 1", 1, "Site 1", "Historical context 1", 0.8, 48.8566, 2.3522, "Site 1", "Type 1");
-        Site site2 = new Site(UUID.randomUUID(), "City 2", 2, "Site 2", "Historical context 2", 0.6, 51.5074, -0.1278, "Site 2", "Type 2");
-        Site site3 = new Site(UUID.randomUUID(), "City 3", 3, "Site 3", "Historical context 3", 0.9, 51.124, 0.1278, "Site 3", "Type 3");
-        Site site4 = new Site(UUID.randomUUID(), "City 4", 4, "Site 4", "Historical context 4", 0.7, 40.86, 0.3522, "Site 4", "Type 4");
+        Site site1 = new Site(UUID.randomUUID(), "City 1", 1, "Site 1", "Historical context 1", 0.8, 48.8566, 2.3522,
+                "Site 1", "Type 1");
+        Site site2 = new Site(UUID.randomUUID(), "City 2", 2, "Site 2", "Historical context 2", 0.6, 51.5074, -0.1278,
+                "Site 2", "Type 2");
+        Site site3 = new Site(UUID.randomUUID(), "City 3", 3, "Site 3", "Historical context 3", 0.9, 51.124, 0.1278,
+                "Site 3", "Type 3");
+        Site site4 = new Site(UUID.randomUUID(), "City 4", 4, "Site 4", "Historical context 4", 0.7, 40.86, 0.3522,
+                "Site 4", "Type 4");
         Site[] sites = { site1, site2, site3, site4 };
 
         TSPService tspSolver = new TSPService(List.of(sites), site2); // Pass the desired start site
@@ -166,6 +172,6 @@ public class TSPService {
             System.out.println(site.getName());
         }
 
-        System.out.println("shortest duration: "+ totalDuration);
+        System.out.println("shortest duration: " + totalDuration);
     }
 }
