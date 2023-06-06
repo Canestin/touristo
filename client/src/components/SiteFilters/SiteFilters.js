@@ -5,9 +5,10 @@ import { departments, historicalContexts } from "../../utils";
 import { createCircuit } from "../../services/circuitService";
 import { useNavigate } from "react-router-dom";
 
+// http://localhost:8080/circuits?departement=69&latitude=48.877059&longitude=2.329685&numberOfDays=4&numberOfSitesPerDay=4
 const SiteFilters = () => {
   const [loading, setLoading] = useState(false);
-  const [city, setCity] = useState("Paris");
+  const [place, setPlace] = useState("Hôtel Balzac, 6 Rue Balzac, 75008 Paris");
   const [department, setDepartment] = useState("");
   const [numberOfDays, setNumberOfDays] = useState(3);
   const [numberOfSitesPerDay, setNumberOfSitesPerDay] = useState(3);
@@ -22,7 +23,11 @@ const SiteFilters = () => {
     setLoading(true);
 
     const circuit = await createCircuit(
-      "departement=75&latitude=48.906737&longitude=2.3373826"
+      `latitude=48.8741748&longitude=2.2985334&departement=${
+        department || 75
+      }&numberOfDays=${numberOfDays || 3}&numberOfSitesPerDay=${
+        numberOfSitesPerDay || 3
+      }`
     );
     setCircuitId(circuit.data.id);
   };
@@ -55,15 +60,6 @@ const SiteFilters = () => {
               );
             })}
           </select>
-        </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="city">City :</label>
-          <input
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            type="text"
-          />
         </div>
 
         <div className={styles.formGroup}>
@@ -120,6 +116,15 @@ const SiteFilters = () => {
               </option>
             ))}
           </select>
+        </div>
+
+        <div className={styles.formGroup}>
+          <label htmlFor="place">Your places to stay :</label>
+          <input
+            value={place}
+            onChange={(e) => setPlace(e.target.value)}
+            type="text"
+          />
         </div>
       </div>
 

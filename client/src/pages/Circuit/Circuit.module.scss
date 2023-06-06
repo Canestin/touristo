@@ -19,3 +19,31 @@
     }
   }
 }
+
+@media only screen and (max-width: 760px) {
+  .container {
+    grid-template-columns: 1fr;
+
+    .sidebar {
+      padding: 10px;
+      height: min-content;
+    }
+
+    .sites {
+      padding: 30px 20%;
+
+      > h1 {
+        margin-bottom: 50px;
+        font-size: 24px;
+      }
+    }
+
+    .sites {
+      padding: 30px 40px;
+
+      > h1 {
+        margin-bottom: 50px;
+      }
+    }
+  }
+}
