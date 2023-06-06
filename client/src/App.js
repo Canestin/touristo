@@ -19,6 +19,7 @@ function App() {
           <Route path=":dayId" element={<Circuit />} />
         </Route>
         <Route path="/*" element={<NotFound />} />
+        <Route path="/not-found" element={<NotFound />} />
       </Routes>
     </div>
   );
