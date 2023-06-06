@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: "https://touristo.herokuapp.com",
   timeout: 30000,
   headers: {
     "Content-Type": "application/json",
