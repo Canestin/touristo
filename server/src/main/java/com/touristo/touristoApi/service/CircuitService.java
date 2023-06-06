@@ -27,7 +27,7 @@ public class CircuitService {
     JourneyService journeyService;
 
     @Transactional
-    public Circuit createCircuit(String departement, Double latitude, Double longitude, Integer numberOfDays, Integer numberOfSitesPerDay) {
+    public Circuit createCircuit(String departement, Double latitude, Double longitude, Integer numberOfDays, Integer numberOfSitesPerDay, String historicalContext, String type) {
         // System.out.println(city+" "+ codeDepartment);
 
         Site home = new Site();
@@ -35,9 +35,34 @@ public class CircuitService {
         home.setLatitude(latitude);
         home.setLongitude(longitude);
         siteRepository.save(home);
-        List<Site> sites = siteRepository.findSitesByParameters(departement);
+        List<Site> sites;
+        System.out.println(historicalContext);
 
-        // System.out.println(sites);
+        // departement *
+        //departemt & type
+        // departement & hC
+        //d & hc & t
+        if("all".equals(historicalContext)){
+            if(type.isEmpty()){
+                sites = siteRepository.findSitesByParameters(departement);
+            }
+            else {
+                sites = siteRepository.findSitesByDeptAndType(departement, type);
+            }
+
+        }
+        else {
+            if(type.isEmpty()) {
+                sites = siteRepository.findSitesByDeptAndHistoricalContext(departement, historicalContext);
+            }
+            else {
+                sites = siteRepository.findSitesByDeptAndHistoricalContextAndType(departement, historicalContext, type);
+            }
+        }
+
+
+
+        System.out.println(sites);
 
         Circuit circuit = new Circuit();
         circuit.setNumberOfDays(numberOfDays);
