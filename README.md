@@ -67,24 +67,41 @@ If you have an IDE, you have nothing more to do, open the project with it and la
 
 If you want to run it with Visual Studio Code:
 
+1. To start the server 
+
 A. Install mvn :
 
 - For Windows, this tutorial can help you : https://www.youtube.com/watch?v=km3tLti4TCM
 - For Mac OS : https://www.youtube.com/watch?v=j0OnSAP-KtU
 
-B. Run the following command to build the application :
+B. Run the following command to install all dependencies :
 
 ```
-mvn clean install
+cd server && mvn clean install
 ```
 
-C. Once the build is complete, run the following command to launch the application:
+C.Once the dependencies are installed, run the following command to launch the application: 
 
 ```
 mvn spring-boot:run
 ```
 
 The application will be accessible at http://localhost:8080
+
+
+2. To start the client
+
+A.  Run the following command to install all dependencies :
+
+```
+cd client && npm install
+```
+
+B. Once the dependencies are installed, run the following command to launch the application:
+
+```
+npm start
+```
 
 ## API routes
 
