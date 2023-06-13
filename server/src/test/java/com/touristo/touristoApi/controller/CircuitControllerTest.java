@@ -39,19 +39,22 @@ class CircuitControllerTest {
         Double longitude = 4.56;
         Integer numberOfDays = 7;
         Integer numberOfSitesPerDay = 2;
+        String historicalContext = "all";
+        String type = "";
 
         // Mock circuit creation
         Circuit mockCircuit = new Circuit();
-        when(circuitService.createCircuit(departement, latitude, longitude, numberOfDays, numberOfSitesPerDay))
+        when(circuitService.createCircuit(departement, latitude, longitude, numberOfDays, numberOfSitesPerDay,
+                type, historicalContext))
                 .thenReturn(mockCircuit);
 
         // Perform the API call
         Circuit result = circuitController.createCircuit(departement, latitude, longitude, numberOfDays,
-                numberOfSitesPerDay);
+                numberOfSitesPerDay, type, historicalContext);
 
         // Verify the circuit service was called with the correct parameters
         verify(circuitService, times(1)).createCircuit(departement, latitude, longitude, numberOfDays,
-                numberOfSitesPerDay);
+                numberOfSitesPerDay, type, historicalContext);
 
         // Verify the result matches the mock circuit
         assertEquals(mockCircuit, result);

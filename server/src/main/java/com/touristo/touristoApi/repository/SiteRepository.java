@@ -14,23 +14,22 @@ import java.util.UUID;
 @Repository
 public interface SiteRepository extends JpaRepository<Site, UUID> {
 
-        @Query("SELECT s FROM Site s WHERE s.code_departement= :departement ORDER BY s.importance DESC LIMIT 30")
+        @Query("SELECT s FROM Site s WHERE s.code_departement= :departement  ORDER BY s.importance DESC LIMIT 60")
 
         List<Site> findSitesByParameters(String departement);
-        /*
-         * @Query("SELECT s FROM Site s WHERE s.city LIKE CONCAT('%', :city, '%') " +
-         * "AND s.code_departement = :codeDepartment AND s.type = :type " +
-         * "AND s.historical_context = :historicalContext " +
-         * "ORDER BY s.importance DESC")
-         * 
-         * 
-         * List<Site> findSitesByParameters(@Param("city") String city,
-         * 
-         * @Param("codeDepartment") String codeDepartment,
-         * 
-         * @Param("type") String type,
-         * 
-         * @Param("historicalContext") String historicalContext);
-         */
+
+        @Query("SELECT s FROM Site s WHERE s.code_departement= :departement AND s.type= :type ORDER BY s.importance DESC LIMIT 60")
+
+        List<Site> findSitesByDeptAndType(String departement, String type);
+
+        @Query("SELECT s FROM Site s WHERE s.code_departement= :departement AND s.historical_context= :historicalContext  ORDER BY s.importance DESC LIMIT 60")
+
+        List<Site> findSitesByDeptAndHistoricalContext(String departement, String historicalContext);
+
+
+        @Query("SELECT s FROM Site s WHERE s.code_departement= :departement AND s.historical_context= :historicalContext AND s.type =:type ORDER BY s.importance DESC LIMIT 60")
+
+        List<Site> findSitesByDeptAndHistoricalContextAndType(String departement, String historicalContext, String type);
+
 
 }

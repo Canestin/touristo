@@ -46,6 +46,8 @@ class CircuitServiceTest {
         Double longitude = 4.56;
         Integer numberOfDays = 7;
         Integer numberOfSitesPerDay = 2;
+        String type = "";
+        String historicalContext = "all";
 
         // Mock site repository
         List<Site> mockSites = new ArrayList<>();
@@ -58,7 +60,7 @@ class CircuitServiceTest {
 
         // Perform the service method
         Circuit result = circuitService.createCircuit(departement, latitude, longitude, numberOfDays,
-                numberOfSitesPerDay);
+                numberOfSitesPerDay, type, historicalContext);
 
         // Verify site repository calls
         verify(siteRepository, times(1)).findSitesByParameters(departement);

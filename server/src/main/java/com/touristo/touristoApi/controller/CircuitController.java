@@ -28,29 +28,11 @@ public class CircuitController {
             @RequestParam Double latitude,
             @RequestParam Double longitude,
             @RequestParam Integer numberOfDays,
-            @RequestParam(required = false, defaultValue = "3") Integer numberOfSitesPerDay
-    ) {
-        return circuitService.createCircuit(departement, latitude, longitude, numberOfDays, numberOfSitesPerDay);
-        /*
-         * @RequestParam Optional<String> city,
-         * 
-         * @RequestParam String codeDepartment,
-         * 
-         * @RequestParam Optional<String> type,
-         * 
-         * @RequestParam Integer numberOfDays,
-         * 
-         * @RequestParam Optional<Integer> numberOfSitesPerDay,
-         * 
-         * @RequestParam Optional<String> historicalContext,
-         * 
-         * @RequestParam Double latitude,
-         * 
-         * @RequestParam Double longitude
-         * ) {
-         * return circuitService.createCircuit(city, codeDepartment, type,
-         * numberOfDays, numberOfSitesPerDay, historicalContext, latitude, longitude);
-         */
+            @RequestParam(required = false, defaultValue = "3") Integer numberOfSitesPerDay,
+            @RequestParam(required = false, defaultValue = "") String type,
+            @RequestParam String historicalContext) {
+        return circuitService.createCircuit(departement, latitude, longitude, numberOfDays, numberOfSitesPerDay, type,
+                historicalContext);
 
     }
 
