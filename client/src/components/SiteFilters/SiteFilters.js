@@ -6,28 +6,25 @@ import { createCircuit } from "../../services/circuitService";
 import { useNavigate } from "react-router-dom";
 
 // http://localhost:8080/circuits?departement=69&latitude=48.877059&longitude=2.329685&numberOfDays=4&numberOfSitesPerDay=4
+
 const SiteFilters = () => {
   const [loading, setLoading] = useState(false);
-  const [place, setPlace] = useState("Hôtel Balzac, 6 Rue Balzac, 75008 Paris");
-  const [department, setDepartment] = useState("");
+  const [department, setDepartment] = useState(75);
   const [numberOfDays, setNumberOfDays] = useState(3);
   const [numberOfSitesPerDay, setNumberOfSitesPerDay] = useState(3);
   const [type, setType] = useState("");
-  const [historicalContext, setHistoricalContext] = useState("");
+  const [historicalContext, setHistoricalContext] = useState("all");
   const [circuitId, setCircuitId] = useState(null);
 
   const navigate = useNavigate();
 
   const handleFilterSubmit = async () => {
     if (loading) return;
+
     setLoading(true);
 
     const circuit = await createCircuit(
-      `latitude=48.8741748&longitude=2.2985334&departement=${
-        department || 75
-      }&numberOfDays=${numberOfDays || 3}&numberOfSitesPerDay=${
-        numberOfSitesPerDay || 3
-      }`
+      `latitude=48.8741748&longitude=2.2985334&departement=${department}&numberOfDays=${numberOfDays}&numberOfSitesPerDay=${numberOfSitesPerDay}&historicalContext=${historicalContext}`
     );
     setCircuitId(circuit.data.id);
   };
@@ -120,11 +117,7 @@ const SiteFilters = () => {
 
         <div className={styles.formGroup}>
           <label htmlFor="place">Your places to stay :</label>
-          <input
-            value={place}
-            onChange={(e) => setPlace(e.target.value)}
-            type="text"
-          />
+          <input value="Hôtel Balzac, 6 Rue Balzac, 75008 Paris" type="text" />
         </div>
       </div>
 
